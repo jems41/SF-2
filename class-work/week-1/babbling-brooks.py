@@ -1,7 +1,7 @@
 specs = []
 
 while True:
-    detail = input("Input each details of a stream: ")
+    detail = input("Input each details of a stream: (Input 77 for end) ")
     if detail == '77':
         specs.append(int(detail))
         break
