@@ -1,0 +1,89 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+bellevue_df = pd.read_csv('bellevue_almshouse_dataset.csv', delimiter=",") # reads csv file
+
+bellevue_df
+bellevue_df.head() # first n rows
+bellevue_df.sample() # random n rows
+bellevue_df.info()
+bellevue_df.describe() or bellevue_df.describe(include='all') # summary stats only for numerical values or the latter
+
+bellevue_df['disease'] # select column
+bellevue_df[['disease']] # select column as a dataframe object
+bellevue_df[['first_name', 'last_name', 'disease']] # selecting multiple columns
+bellevue_df['disease'].value_counts() # count number of unique values in a column in order
+bellevue_df['disease'].value_counts()[:10] # displays first 10 of the one before
+
+bellevue_df['disease'].value_counts()[:10].plot(kind='bar', title='Bellevue Almshouse:\nMost Frequent "Diseases"')
+# makes a bar diagram with title of that
+* ‘bar’ or ‘barh’ for bar plots
+* ‘hist’ for histogram
+* ‘box’ for boxplot
+* ‘kde’ or ‘density’ for density plots
+* ‘area’ for area plots
+* ‘scatter’ for scatter plots
+* ‘hexbin’ for hexagonal bin plots
+* ‘pie’ for pie plots
+* ‘line’ for line plots
+''.get_figure().savefig('Bellevue') # saves the iamge in our folder
+bellevue_df['profession'].value_counts()[:10].plot(kind='pie', figsize=(10, 10), title='') # defines size
+bellevue_df.plot.hist(y='age') # defines an axis
+ax = bellevue_df['profession'].value_counts()[:10].plot(kind='pie', figsize=(10, 10), title='')
+ax.figure.savefig('.pdf') # save plot as png or pdf
+
+bellevue_df[bellevue_df['profession'] == 'teacher'] # filters the specific 'info' from the 'column' as a dataframe
+bellevue_df['profession'] == 'teacher' # will print a bunch of Boolean statements
+women_filter = bellevue_df['gender'] == 'f'
+bellevue_women = bellevue_df[women_filter] # filter by variables
+bellevue_women['profession'].value_counts() # in order the most unique type
+bellevue_women['profession'].value_counts()[:3].plot(kind='pie') # plots top 3
+date_filter = bellevue_df['date_in'] >= '1847-04-17' # w/ operators (>, <, >=, <=)
+bellevue_women.to_csv("Bellevue_women.csv", encoding='utf-8', index=False) # makes another csv with said details
+
+slave_voyages_df.shape # diplays rows vs columns
+slave_voyages_df.dtypes # checks datatypes
+slave_voyages_df.columns # displays name of columns
+slave_voyages_df[slave_voyages_df['percent_women'].notna()] # doesn't include NaN
+slave_voyages_df['percent_women'].isna().value_counts(normalize=True) # normalize transform numbers into percentages
+slave_voyages_df.count() / len(slave_voyages_df) # same method as up
+slave_voyages_df['percent_women'].fillna('no gender information recorded') # replaces NaN with ''
+slave_voyages_df = slave_voyages_df.rename(columns={'flag': 'national_affiliation'}) # rename column
+
+icesheets_df.plot.line(y='Antarctic mass (Gigatonnes)', x='TIME (year.decimal)') # plot with x and y
+plt.scatter(icesheets_df['TIME (year.decimal)'], icesheets_df['Antarctic mass (Gigatonnes)'], s = 5, c = "Black" marker = "o") # connects every dot
+
+plt.hist(titanic_df['age']) # age on the x-axis
+
+examples:
+age_filter = titanic_df['age'] > 30 # new DataFrame with only entries where age > 30  
+age_over_30_df = titanic_df[age_filter] # give number of such entires
+women_over_30_filter = age_over_30_df['who'] == 'woman' # show only the women entries
+age_over_30_df[women_over_30_filter]
+age_over_30_df['class'].value_counts()[:10].plot(kind='pie', figsize=(10, 10)) # plot pie chart class
+fare_class_town_df = titanic_df[['fare', 'class', 'embark_town']] # Create a new DataFrame with 3 columns
+fare_class_town_df = fare_class_town_df.dropna() # Clean your data from all `NaN` values
+fare_class_town_df.sort_values(by = ['fare'], ascending = False) # Sort your DataFrame by fare in decreasing order
+fare_class_town_df.sort_values(by = ['embark_town']) # Sort in alphabetical order of the embarked_town
+titanic_df.groupby('pclass').size() # get the number of entries from each class
+titanic_df.groupby('embark_town').size() # get number of entries from each town
+titanic_df.groupby('pclass').describe().round(2).T # get general summary of each class
+titanic_df.groupby(['pclass', 'survived']).size() # get the number of entries from each class of only survivors
+titanic_df.groupby(['pclass', 'who']).count() # plot women, men, children according to class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
