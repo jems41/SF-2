@@ -14,15 +14,17 @@ upgrade to:
 
 
 word = input('enter string: ') 
-sub_block = 'HONI'              
+sub_block = input('enter sub_block: ')              
 block_count = 0 
 i = j = 0  
 
-while i < len(word) and i < len(sub_block):
-    if word[i] == sub_block[i]:   
-        if j!= len(sub_block):    
+while i < len(word) and j < len(sub_block):
+    if word[i] == sub_block[j]:   
+        if j != len(sub_block)-1:    
             j = j + 1               
         else:                 
-            block_count = block_count + 1   
-        i = i + 1              
+            block_count = block_count + 1
+            j = 0
+    i += 1     
+       
 print(f'number of HONI-blocks: {block_count}')
