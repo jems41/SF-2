@@ -1,0 +1,55 @@
+QUESTION 2: BAKER'S BONUS
+
+A bakery has multiple franchises opened and wants to congratulate the franchises that have 
+performed well throughout the years, as well as congratulate everyone for performing well 
+on certain days of the year.  
+
+Congratulations are offered as follows:
+--> if in a single day all franchises combined sell an amount of baked goods that is equivalent 
+to multiple of baker's dozen (i.e. 13), then all franchises will receive a bonus
+--> if an individual franchise, throughout its entire existence, has sold an amount of baked 
+goods that is equivalent to a multiple of a baker's dozen (i.e. 13), then the franchise will 
+receive a bonus.  
+
+INPUT SPECIFICATION:
+--> first line of input contains 2 values: F and D separated by a space.  F represents the 
+number of franchises that the bakery has and D represents the number of days of information
+--> on the next D lines, there will be F integers separated by spaces, such that the i-th 
+integer online j represents the number of baked goods sold by franchise i on day j.  
+
+OUTPUT SPECIFICATION:
+Determine, for each day (across all franchises) and for each franchise (across all days), 
+whether or not the number of baked goods sold is a multiple of 13.  If so, track how many 
+baker's dozens were sold.  Report the total number of baker's dozens as a single integer 
+on its own line.  
+
+Sample Input-1
+4 5
+4 3 2 4
+3 3 2 1
+8 2 4 1
+2 2 4 3
+9 3 2 3
+
+Sample Output-1
+4
+
+Sample Input-2
+4 2
+4 4 4 1
+1 1 3 4
+
+Sample Output-2
+1
+
+
+Explanation of Sample Output:
+
+In the first case, the first franchise sold a total of 26 baked goods 
+(which is 2 baker's dozens), the second franchise sold a total of 13 baked goods 
+(which is 1 baker's dozen), and finally, all franchises together sold 13 baked goods 
+on the first day (which is 1 baker's dozen). This totals to 4 baker's dozens.
+
+For the second dataset, no franchises made enough baked goods on their own, but there 
+was a single baker's dozen created among them all on the first day. 
+This totals to 1 baker's dozen.
