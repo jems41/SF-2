@@ -29,9 +29,30 @@ def findEmptyTile(board):
     return emptySpaces
 
 def nextMove(board): 
-    # if board ==
+    n = len(board)
+    empty = findEmptyTile(board)
+    y, x = empty
+    input_move = [' ', ' ', ' ', ' ']
+
+    if y < n - 1:
+        input_move[0] = 'W'
+    if y > 0:
+        input_move[2] = 'S'
+    if x < n - 1:
+        input_move[1] = 'A'
+    if x > 0:
+        input_move[3] = 'D'
+
+    print(f"\t\t\t  ({input_move[0]}) \nEnter WASD (or QUIT): ({input_move[1]}) ({input_move[2]}) ({input_move[3]})")
     
-    print("\t\t\t  (W)\nEnter WASD (or QUIT): ( ) (S) (D)")
+    move = input('Enter your move: ')
+    if move in input_move:
+        return move
+    elif move.lower() == 'quit':
+        sys.exit()
+    else:
+        print('Invalid move')
+        nextMove(board)
 
 def displayBoard(board_lst):
     n = len(board_lst)
@@ -56,5 +77,4 @@ def displayBoard(board_lst):
 
 board2 = getNewPuzzle(3)
 displayBoard(board2)
-findEmptyTile(board2)
 nextMove(board2)
