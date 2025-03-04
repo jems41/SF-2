@@ -44,8 +44,8 @@ def nextMove(board):
         input_move[3] = 'D'
 
     print(f"\t\t\t  ({input_move[0]}) \nEnter WASD (or QUIT): ({input_move[1]}) ({input_move[2]}) ({input_move[3]})")
-    
-    move = input('Enter your move: ')
+    move = input('')
+
     if move in input_move:
         return move
     elif move.lower() == 'quit':
