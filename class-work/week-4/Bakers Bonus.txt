@@ -24,7 +24,7 @@ baker's dozens were sold.  Report the total number of baker's dozens as a single
 on its own line.  
 
 Sample Input-1
-4 5
+4 2
 4 3 2 4
 3 3 2 1
 8 2 4 1
