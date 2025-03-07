@@ -69,21 +69,3 @@ titanic_df.groupby('embark_town').size() # get number of entries from each town
 titanic_df.groupby('pclass').describe().round(2).T # get general summary of each class
 titanic_df.groupby(['pclass', 'survived']).size() # get the number of entries from each class of only survivors
 titanic_df.groupby(['pclass', 'who']).count() # plot women, men, children according to class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
