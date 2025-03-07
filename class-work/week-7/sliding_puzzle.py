@@ -3,9 +3,10 @@
 import random
 import sys
 
-def getNewPuzzle(n):
+def getNewPuzzle(n, original):
     board = tileLabels(n)
-    random.shuffle(board)
+    if not original:
+        random.shuffle(board)
     fullBoard = []
     for i in range(0, len(board), n):
         fullBoard.append(board[i:i + n])
@@ -43,16 +44,15 @@ def nextMove(board):
     if x > 0:
         input_move[3] = 'D'
 
-    print(f"\t\t\t  ({input_move[0]}) \nEnter WASD (or QUIT): ({input_move[1]}) ({input_move[2]}) ({input_move[3]})")
-    move = input('')
-
-    if move in input_move:
-        return move
-    elif move.lower() == 'quit':
-        sys.exit()
-    else:
-        print('Invalid move')
-        nextMove(board)
+    while True:
+        print(f"\t\t\t  ({input_move[0]}) \nEnter WASD (or QUIT): ({input_move[1]}) ({input_move[2]}) ({input_move[3]})")
+        move = input('').upper()
+        if move in input_move:
+            return move
+        elif move.lower() == 'quit':
+            sys.exit()
+        else: 
+            print('Invalid move')
 
 def displayBoard(board_lst):
     n = len(board_lst)
@@ -75,6 +75,35 @@ def displayBoard(board_lst):
     draw_board += horizontal_div
     print(draw_board.format(*labels))
 
-board2 = getNewPuzzle(3)
-displayBoard(board2)
-nextMove(board2)
+def makeMove(board, move):
+    empty = findEmptyTile(board)
+    y, x = empty
+    if move == 'W':
+        board[y][x], board[y + 1][x] = board[y + 1][x], board[y][x]
+    elif move == 'S':
+        board[y][x], board[y - 1][x] = board[y - 1][x], board[y][x]
+    elif move == 'A':
+        board[y][x], board[y][x + 1] = board[y][x + 1], board[y][x]
+    elif move == 'D':
+        board[y][x], board[y][x - 1] = board[y][x - 1], board[y][x]
+    return board
+
+def mainProgram():
+    print('Welcome to the sliding puzzle game!')
+    n = int(input('Enter the size of the puzzle you want to play: '))
+    board = getNewPuzzle(n, False)
+    moveAmount = 0
+    while True:
+        displayBoard(board)
+        move = nextMove(board)
+        board = makeMove(board, move)
+        moveAmount += 1
+        if board == getNewPuzzle(n, True):
+            displayBoard(board)
+            print('Congratulations! You won!')
+            return
+        if moveAmount == 31 and n == 3 or moveAmount == 80 and n == 4:
+            print('Best of luck next time!')
+            sys.exit()
+
+mainProgram()
