@@ -2,17 +2,34 @@
 Quetion 1: Create Pascal's Triangle more efficiently than O(n^3)-time and
 O(n^2) space.  
 '''
+def pascal(num):
+      lst1 = []
+    
+      for i in range(num):
+            lst2 = [1]
 
+            for j in range(1, i):
+            # Use the recurrence relation: 
+                  lst2.append(lst1[i-1][j-1] + lst1[i-1][j])
+                  print(lst1[i-1][j])
+        
+            if i > 0:
+                  lst2.append(1)  # The last element of each row is always 1
+        
+            lst1.append(lst2)
+    
+      return lst1
+
+print(pascal(2))
 '''
 Question 2: ToyBoxes
 '''
-
 
 '''
 Question 3: Baker Bonus
 problem statement already online
 '''
-
+# DONE
 '''
 Question 4: Unique Paths
 Given a m by n matrix, you are to determine and print the 

@@ -42,7 +42,7 @@ def wordTally(n):
 
     return repeats
 
-print(wordTally(['balls', 'balls', 'apple']))
+# print(wordTally(['balls', 'balls', 'apple']))
 
 '''
 Quesiton3: 
@@ -63,8 +63,20 @@ d = {3: 5, 4: 5, 6: 1}
 d_inverted = {5: [3, 4], 1: [6]}
 '''
 
+def invertDictionary(d):
+    d_inverted = {}
+    
+    for key, value in d.items():
+        if value not in d_inverted:
+            d_inverted[value] = [key]
+        else:
+            d_inverted[value].append(key)
+    
+    return d_inverted
 
 
+d = {3: 5, 4: 5, 6: 1}
+#print(invertDictionary(d))
 '''
 Question 4:
 
@@ -73,3 +85,23 @@ k-th most common words.  A word w is the k-th most
 common if exactly k-1 distinct words occur more
 frequently than w. 
 '''
+def common(words, k):
+    word_counts = {}
+    
+    for word in words:
+        if word in word_counts:
+            word_counts[word] += 1
+        else:
+            word_counts[word] = 1
+
+    def get_frequency(item):
+        return item[1]
+    
+    sorted_words = sorted(word_counts.items())
+
+    if k <= len(sorted_words):
+        return sorted_words[k-1][0]
+    else:
+        return None  
+
+print(common(['balls', 'balls', 'apple', 'apple', 'apple', 'banana'], 2))

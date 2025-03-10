@@ -17,7 +17,6 @@ def pillar_from(platforms, height, horizontal_pos):
     for platform in platforms:        
         if (platform[0] < height and covers(platform, horizontal_pos)):
             bottom = max(bottom, platform[0])  # Fix to correctly identify the bottom of the platform
-    print(f"pillar_from: height={height}, horizontal_pos={horizontal_pos}, bottom={bottom}")  # Debug print
     return height - bottom
 
 n = int(input())
