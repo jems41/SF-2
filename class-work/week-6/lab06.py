@@ -11,7 +11,6 @@ def pascal(num):
             for j in range(1, i):
             # Use the recurrence relation: 
                   lst2.append(lst1[i-1][j-1] + lst1[i-1][j])
-                  print(lst1[i-1][j])
         
             if i > 0:
                   lst2.append(1)  # The last element of each row is always 1
@@ -24,7 +23,7 @@ print(pascal(2))
 '''
 Question 2: ToyBoxes
 '''
-
+# dont have the question
 '''
 Question 3: Baker Bonus
 problem statement already online
@@ -63,10 +62,33 @@ path 3: (0, 0) --> (1, 0) --> (1, 1) --> (1, 2)
 
 => output: 3
 '''
+from math import factorial
+
+def shortPath(n, m):
+    path = n-1 + m-1
+    path_count = factorial(path) // (factorial(n-1) * factorial(m-1))
+    return path_count
+
+a = int(input())
+b = int(input())
+
+print(shortPath(a, b))
 
 '''
 Question 5: 
-Update Pascal's Triangle code so that your algorithm uses only O(1) space.  
+Update Pascal's Triangle code so that your algorithm uses only O(1) space.
+  
 '''
+def pascal(num):
+      row = [1]
+    
+      for i in range(1, num):
+            for j in range(i-1, 0, -1):
+                  row[j] = row[j-1] + row[j]
+        
+            row.append(1)
+    
+      return row
 
+print(pascal(100))
 
