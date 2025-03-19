@@ -6,10 +6,11 @@ import random
 
 # create the gui + name + size
 root = Tk()
-root.title('Jspect\'s Music Player')
+root.title('Jems41\'s Music Player')
 root.geometry("640x480")
 
 # import the pygame sound system
+pygame.init()
 pygame.mixer.init()
 
 # add a menubar to the root window
@@ -20,8 +21,12 @@ songs = []
 current_song = ""
 paused = False
 
+# event create something idk had to google this
+SONG_END = pygame.USEREVENT + 1
+pygame.mixer.music.set_endevent(SONG_END)
+
 def load_song():
-    global current_song
+    global current_song, scale
     root.directory = filedialog.askdirectory()
 
     for song in os.listdir(root.directory):
@@ -32,11 +37,13 @@ def load_song():
     for song in songs:
         songlist.insert("end", song)
     
-    if songs:  # Ensure the songs list is not empty
+    if songs:
         songlist.selection_set(0) # selecting first song at the top of the song list
         current_song = songs[songlist.curselection()[0]] # set the current song to the song that selected in the song list
         pygame.mixer.music.load(os.path.join(root.directory, current_song)) # constructs the full file path
         pygame.mixer.music.play()
+    scale.set(10)
+    check_next_song()
 
 def pause_song():
     global paused
@@ -49,6 +56,7 @@ def pause_song():
         pygame.mixer.music.unpause()
         paused = False
         change_icon(False)
+    check_next_song()
 
 def next_song():
     global current_song, paused
@@ -65,6 +73,7 @@ def next_song():
     pygame.mixer.music.load(os.path.join(root.directory, current_song))
     pygame.mixer.music.play()
     paused = False
+    check_next_song()
 
 def prev_song():
     global current_song, paused
@@ -80,6 +89,22 @@ def prev_song():
 
     pygame.mixer.music.load(os.path.join(root.directory, current_song))
     pygame.mixer.music.play()
+    check_next_song()
+
+# change image of play/resume
+def change_icon(condition):
+    global pause_btn_image
+    if condition:
+        pause_btn_image = PhotoImage(file='play-button3.png')
+    else:
+        pause_btn_image = PhotoImage(file='pause-button1.png')
+    pause_btn.config(image=pause_btn_image)
+    pause_btn.image = pause_btn_image
+
+# getting value of volume
+def change_volume():
+    volume = scale.get()
+    pygame.mixer.music.set_volume(volume/10)
 
 organise_menu = Menu(menubar, tearoff=False) # creating an organise menu
 organise_menu.add_command(label='Select Folder', command=load_song) # add a command to the menu
@@ -98,11 +123,6 @@ prev_btn_image = PhotoImage(file='previous.png')
 control_panel = Frame(root)
 control_panel.pack()
 
-# getting value of volume
-def change_volume():
-    volume = scale.get()
-    pygame.mixer.music.set_volume(volume/10)
-
 # creating a button for the image
 pause_btn = Button(control_panel, image=pause_btn_image, borderwidth=0, command=pause_song)
 next_btn = Button(control_panel, image=next_btn_image, borderwidth=0, command=next_song)
@@ -117,14 +137,22 @@ prev_btn.grid(row=0, column=0, padx=7, pady=10)
 scale.grid(row=0, column=4, padx=7, pady=10, in_=control_panel)
 volume_btn.grid(row=0, column=5, padx=7, pady=10)
 
-# change image of play/resume
-def change_icon(condition):
-    global pause_btn_image
-    if condition:
-        pause_btn_image = PhotoImage(file='play-button3.png')
-    else:
-        pause_btn_image = PhotoImage(file='pause-button1.png')
-    pause_btn.config(image=pause_btn_image)
-    pause_btn.image = pause_btn_image
+def check_next_song():
+    global paused
 
-root.mainloop() # main code to display a screen
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            root.destroy()
+            pygame.quit()
+            return
+        elif event.type == SONG_END:
+            next_song()
+
+    if paused:
+        return
+
+    root.after(100, check_next_song)
+
+root.mainloop()
+
+pygame.quit()
