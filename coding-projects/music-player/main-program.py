@@ -7,7 +7,7 @@ import random
 # create the gui + name + size
 root = Tk()
 root.title('Jems41\'s Music Player')
-root.geometry("640x480")
+root.geometry("640x640")
 
 # import the pygame sound system
 pygame.init()
