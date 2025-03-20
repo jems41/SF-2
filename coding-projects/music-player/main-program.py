@@ -7,7 +7,8 @@ import random
 # create the gui + name + size
 root = Tk()
 root.title('Jems41\'s Music Player')
-root.geometry("640x480")
+root.geometry("640x560") #increase the window height, now able to see to the player options -linktr.ee/kp08
+root.resizable(width=False, height=False) #disabling window adjusting -linktr.ee/kp08
 
 # import the pygame sound system
 pygame.init()
