@@ -27,8 +27,12 @@ SONG_END = pygame.USEREVENT + 1
 pygame.mixer.music.set_endevent(SONG_END)
 
 def load_song():
-    global current_song, scale
+    global current_song, scale, songlist, songs
     root.directory = filedialog.askdirectory()
+    
+    songlist.delete(0, 'end')  # Clear the Listbox if there's already songs added
+    songs.clear()
+    
 
     for song in os.listdir(root.directory):
         name, ext = os.path.splitext(song)
@@ -43,7 +47,7 @@ def load_song():
         current_song = songs[songlist.curselection()[0]] # set the current song to the song that selected in the song list
         pygame.mixer.music.load(os.path.join(root.directory, current_song)) # constructs the full file path
         pygame.mixer.music.play()
-    scale.set(10)
+    
     check_next_song()
 
 def pause_song():
@@ -137,6 +141,7 @@ next_btn.grid(row=0, column=3, padx=7, pady=10)
 prev_btn.grid(row=0, column=0, padx=7, pady=10)
 scale.grid(row=0, column=4, padx=7, pady=10, in_=control_panel)
 volume_btn.grid(row=0, column=5, padx=7, pady=10)
+scale.set(10)
 
 def check_next_song():
     global paused
