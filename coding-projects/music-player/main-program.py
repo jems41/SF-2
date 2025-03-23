@@ -36,7 +36,7 @@ def load_song():
 
     for song in os.listdir(root.directory):
         name, ext = os.path.splitext(song)
-        if ext == ".wav" or ext == ".mp3":
+        if ext == ".wav" or ext == ".mp3" or ext == ".ogg": #ogg update! -linktr.ee/kp08
             songs.append(song)
 
     for song in songs:
