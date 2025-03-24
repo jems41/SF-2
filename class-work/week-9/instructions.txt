@@ -1,0 +1,9 @@
+Create a new file called accounts.txt to which you will write multiple lines.
+Each line contains the account number, last name, and account balance of an
+individual. Read input from the user and add it to your file.
+
+100 Jones 24.98
+200 Doe 345.67
+300 White 0.00
+400 Stone -42.16
+500 Rich 224.62
