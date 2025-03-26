@@ -21,6 +21,7 @@ root.config(menu=menubar)
 songs = []
 current_song = ""
 paused = False
+shuffled = False
 
 # event create something idk had to google this
 SONG_END = pygame.USEREVENT + 1
@@ -46,8 +47,7 @@ def load_song():
         songlist.selection_set(0) # selecting first song at the top of the song list
         current_song = songs[songlist.curselection()[0]] # set the current song to the song that selected in the song list
         pygame.mixer.music.load(os.path.join(root.directory, current_song)) # constructs the full file path
-        pygame.mixer.music.play()
-    
+        pygame.mixer.music.play() # play the song
     check_next_song()
 
 def pause_song():
@@ -61,6 +61,7 @@ def pause_song():
         pygame.mixer.music.unpause()
         paused = False
         change_icon(False)
+
     check_next_song()
 
 def next_song():
@@ -96,7 +97,23 @@ def prev_song():
     pygame.mixer.music.play()
     check_next_song()
 
-# change image of play/resume
+def random_song():
+    global current_song, index_songs, shuffled, paused
+    if index_songs: # verifies if there are songs in the list
+        random_index = index_songs.pop(0) # get the first song in the randomized list
+        
+        songlist.selection_clear(0, END)
+        songlist.selection_set(random_index)
+        current_song = songs[songlist.curselection()[0]]
+        pygame.mixer.music.load(os.path.join(root.directory, current_song))
+        pygame.mixer.music.play()
+    else:
+        pause_song()
+        shuffled = False
+        paused = True
+        change_icon2(False)
+
+# change image of play/resume button
 def change_icon(condition):
     global pause_btn_image
     if condition:
@@ -104,12 +121,32 @@ def change_icon(condition):
     else:
         pause_btn_image = PhotoImage(file='pause-button1.png')
     pause_btn.config(image=pause_btn_image)
-    pause_btn.image = pause_btn_image
+
+# change image of shuffle button
+def change_icon2(condition):
+    global shuffle_btn_image
+    if condition:
+        shuffle_btn_image = PhotoImage(file='shuffleselected.png')
+    else:
+        shuffle_btn_image = PhotoImage(file='shuffle.png')
+    shuffle_btn.config(image=shuffle_btn_image)
 
 # getting value of volume
 def change_volume():
     volume = scale.get()
     pygame.mixer.music.set_volume(volume/10)
+
+# shuffles the songs (similar to pause_song)
+def toggle_random_song():
+    global shuffled, index_songs
+    if not shuffled:
+        shuffled = True
+        change_icon2(True)  # Update shuffle button icon to indicate shuffle mode
+        index_songs = list(range(len(songs)))
+        random.shuffle(index_songs) # [1, 0, 2]
+    else:
+        shuffled = False
+        change_icon2(False) 
 
 organise_menu = Menu(menubar, tearoff=False) # creating an organise menu
 organise_menu.add_command(label='Select Folder', command=load_song) # add a command to the menu
@@ -123,6 +160,7 @@ songlist.pack()
 pause_btn_image = PhotoImage(file='pause-button1.png')
 next_btn_image = PhotoImage(file='next.png')
 prev_btn_image = PhotoImage(file='previous.png')
+shuffle_btn_image = PhotoImage(file='shuffle.png')
 
 # adding a widget at the bottom for the controls
 control_panel = Frame(root)
@@ -134,13 +172,15 @@ next_btn = Button(control_panel, image=next_btn_image, borderwidth=0, command=ne
 prev_btn = Button(control_panel, image=prev_btn_image, borderwidth=0, command=prev_song)
 scale = Scale(control_panel, from_=0, to=10, orient="horizontal", label='Volume')
 volume_btn = Button(control_panel, text='Update Volume', command=change_volume)
+shuffle_btn = Button(control_panel, image=shuffle_btn_image, borderwidth=0, command=toggle_random_song)
 
 # adding it to the root
-pause_btn.grid(row=0, column=2, padx=7, pady=10)
-next_btn.grid(row=0, column=3, padx=7, pady=10)
+pause_btn.grid(row=0, column=1, padx=7, pady=10)
+next_btn.grid(row=0, column=2, padx=7, pady=10)
 prev_btn.grid(row=0, column=0, padx=7, pady=10)
 scale.grid(row=0, column=4, padx=7, pady=10, in_=control_panel)
 volume_btn.grid(row=0, column=5, padx=7, pady=10)
+shuffle_btn.grid(row=0, column=3, padx=7, pady=10)
 scale.set(10)
 
 def check_next_song():
@@ -152,7 +192,10 @@ def check_next_song():
             pygame.quit()
             return
         elif event.type == SONG_END:
-            next_song()
+            if shuffled:
+                random_song()
+            else:
+                next_song()
 
     if paused:
         return
