@@ -8,8 +8,6 @@ def search(collection, value):
         print("searching")
     return found
     
-
-
 lst = list(range(1,50000))
 
 s = set(range(1,50000))
