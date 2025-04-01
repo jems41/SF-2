@@ -1,0 +1,12 @@
+{
+    "students": [
+        {"first_name": "Lucy", "last_name": "Smith"},
+        {"first_name": "Bob", "last_name": "Ross"},
+        {"first_name": "Anna", "last_name": "Balls"}
+    ]
+}
+
+curly brackets are dictionnaries
+json always has strings with DOUBLE quotations
+square brackets are arrays
+its legit same syntax as dictionnaries
