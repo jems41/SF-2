@@ -42,7 +42,7 @@ def wordTally(n):
 
     return repeats
 
-# print(wordTally(['balls', 'balls', 'apple']))
+print(wordTally(['balls', 'balls', 'apple']))
 
 '''
 Quesiton3: 
@@ -104,4 +104,4 @@ def common(words, k):
     else:
         return None  
 
-print(common(['balls', 'balls', 'apple', 'apple', 'apple', 'banana'], 2))
+#print(common(['balls', 'balls', 'apple', 'apple', 'apple', 'banana'], 2))
