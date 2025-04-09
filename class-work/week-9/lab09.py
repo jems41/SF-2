@@ -22,7 +22,7 @@ for line in output_file:
         accounts_dict[account_number][last_name] = balance
 output_file.close()
 
-print(accounts_dict)
+#print(accounts_dict)
 
 
 # Question 2
@@ -46,16 +46,24 @@ print(accounts_dict)
     (iii) the average of the average of all 3 exams for all students.  
 '''
 
-input_file = open('grades.txt', 'w')
-for _ in range(10):
-    student_info = input("Enter student information (firstname, lastname, exam1grade, exam2grade, exam3grade): ")
-    input_file.write(student_info + "\n")
-        
-input_file.close()
-
 students = []
 
 file = open("grades.txt", "r") 
+
+def grades_desc(student):
+    exam1 = student['exam1grade']
+    exam2 = student['exam2grade']
+    exam3 = student['exam3grade']
+    
+    
+    min_grade = min(exam1, exam2, exam3)
+    max_grade = max(exam1, exam2, exam3)
+    avg_grade = (exam1 + exam2 + exam3) / 3
+        
+    print(f"Student: {student['firstname']}{student['lastname']}")
+    print(f"Minimum grade: {min_grade}")
+    print(f"Maximum grade: {max_grade}")
+    print(f"Average grade: {avg_grade:.1f}")
 
 for line in file:
     data = line.strip().split(',')
@@ -67,8 +75,21 @@ for line in file:
         'exam2grade': float(data[3]),
         'exam3grade': float(data[4])
         }
-        
+    grades_desc(student)
+
     students.append(student)
+
+global_avr = []
+for i in range(3):
+    grades = [student[f'exam{i+1}grade'] for student in students]
+    min_grade = min(grades)
+    max_grade = max(grades)
+    avg_grade = sum(grades) / len(grades)
+    global_avr.append(avg_grade)
+
+    print(f"Exam {i+1} - Min: {min_grade}, Max: {max_grade}, Avg: {avg_grade:.1f}")
+
+print(f"Average of averages: {sum(global_avr) / len(global_avr):.1f}")
 
 # Question 3
 '''
@@ -97,4 +118,43 @@ word in the words.txt file is on a new line.
     One you finish writing to your result.txt file, print the content of
     your file.  Make sure to close all files that you have opened.  
 '''
+input_file = open('words.txt', 'r')
+output_file = open('words_updated.txt', 'w')
 
+for line in input_file:
+    word = line.rstrip()
+    output_file.write(word + ' ')
+input_file.close()     
+output_file.close()
+
+output_file = open('words_updated.txt', 'r')
+num_words = 0
+
+for line in output_file:
+    word = line.split()
+    num_words += len(word)
+
+k = int(input("Enter an integer k (between 1 and 80): "))
+if k < 1 or k > 80:
+    print("Invalid input. k must be between 1 and 80.")
+    exit()
+
+output_file.close()
+
+output_file = open('result.txt', 'w')
+input_file = open('words_updated.txt', 'r')
+
+for line in input_file:
+    word_lst = line.split()
+
+line = ''
+exclude = ['.', '&', '(', ')']
+for word in word_lst:
+    if len(word) + len(line) - line.count(' ') <= k and word not in exclude:
+        line += word + ' '
+    elif line:
+        output_file.write(line + '\n')
+        line = ''
+
+output_file.close()
+input_file.close()
