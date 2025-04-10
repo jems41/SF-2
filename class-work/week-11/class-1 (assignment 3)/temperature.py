@@ -45,3 +45,34 @@ def avgTempMonth(dct, month):
     return round(sum(total_temp)/len(total_temp), 2)
 
 input_file.close()
+# pt 2
+
+def belowFreezing(dct):
+    month_list = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+    freezing_months = []
+    for year in dct:
+        index = 0
+        for i in dct[year]:
+            index += 1
+            if i < 0:
+                freezing_months.append(month_list[index-1])
+    return list(set(freezing_months))
+
+input_file = open('data.txt', 'r')
+output_file = open('data_celsius.txt', 'w')
+
+for line in input_file:
+    if line and line[0] != '1':
+        line = line.rstrip()
+        output_file.write(line + '\n')
+
+for year in temp_dict:
+    output_line = str(year)
+    for value in temp_dict[year]:
+        output_line += '\t' + f'{value:<6}'
+    output_file.write(output_line + '\n')
+
+#print(belowFreezing(temp_dict))
+#print(temp_dict)
+input_file.close()
+output_file.close()
