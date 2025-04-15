@@ -1,3 +1,4 @@
+from __future__ import annotations
 from point2 import Point
 
 class Segment:
