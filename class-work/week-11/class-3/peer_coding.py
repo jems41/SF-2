@@ -52,34 +52,39 @@ To call this function from the main program simply use the '+' operator between 
 
 3) Define __sub__ function that takes one argument other_fraction, substracts other_fraction from this fraction and returns the result in reduced form. To call this function from the main program simply use the '-' operator between two Fraction objects.
 '''
-def __add__(self, other_fraction):
-    new_numerator = self.numerator * other_fraction.denominator + other_fraction.numerator * self.denominator
-    new_denominator = self.denominator * other_fraction.denominator
-    return Fraction(new_numerator, new_denominator)
+    def __add__(self, other_fraction):
+        new_numerator = self.numerator * other_fraction.denominator + other_fraction.numerator * self.denominator
+        new_denominator = self.denominator * other_fraction.denominator
+        return Fraction(new_numerator, new_denominator)
+    
+    def __sub__(self, other_fraction):
+        new_numerator = self.numerator * other_fraction.denominator - other_fraction.numerator * self.denominator
+        new_denominator = self.denominator * other_fraction.denominator
+        return Fraction(new_numerator, new_denominator)
 
-def __sub__(self, other_fraction):
-    new_numerator = self.numerator * other_fraction.denominator - other_fraction.numerator * self.denominator
-    new_denominator = self.denominator * other_fraction.denominator
-    return Fraction(new_numerator, new_denominator)
+    def __truediv__(self, other_fraction):
+        num= self.numerator * other_fraction.denominator
+        den = self.denominator * other_fraction.numerator
+        return Fraction(num, den) 
 
 '''
 4) Define __eq__, __ne__, __gt__, __ge__, __repr__ functions. When __repr__ is called, the display should be num/denom. Note that when checking for
 equality 3/4 and 6/8 should reutrn True.
 '''
-def __eq__(self, other_fraction):
-    return self.numerator * other_fraction.denominator == other_fraction.numerator * self.denominator
-
-def __ne__(self, other_fraction):
-    return not self.__eq__(other_fraction)
-
-def __gt__(self, other_fraction):
-    return self.numerator * other_fraction.denominator > other_fraction.numerator * self.denominator
-
-def __ge__(self, other_fraction):
-    return self.numerator * other_fraction.denominator >= other_fraction.numerator * self.denominator
-
-def __repr__(self):
-    return f"{self.numerator}/{self.denominator}"
+    def __eq__(self, other_fraction):
+        return self.numerator * other_fraction.denominator == other_fraction.numerator * self.denominator
+    
+    def __ne__(self, other_fraction):
+        return not self.__eq__(other_fraction)
+    
+    def __gt__(self, other_fraction):
+        return self.numerator * other_fraction.denominator > other_fraction.numerator * self.denominator
+    
+    def __ge__(self, other_fraction):
+        return self.numerator * other_fraction.denominator >= other_fraction.numerator * self.denominator
+    
+    def __repr__(self):
+        return f"{self.numerator}/{self.denominator}"
 
 '''
 5) Define __lt__, __le__, __float__ functions. Note that the __float__ function should return the float value of the fraction.
