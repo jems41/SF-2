@@ -104,4 +104,4 @@ def common(words, k):
     else:
         return None  
 
-#print(common(['balls', 'balls', 'apple', 'apple', 'apple', 'banana'], 2))
+print(common(['balls', 'balls', 'apple', 'apple', 'apple', 'banana'], 2))

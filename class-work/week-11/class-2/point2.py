@@ -57,12 +57,11 @@ class Point: # always takes the latest one
 p1 = Point(0, 0)
 print(f'(x, y) coordinates of p1: ({p1.x}, {p1.y})')
 
-p1.translate(4, 2)
-print(f'(x, y) coordinates of p1: ({p1.x}, {p1.y})') # new coords
+#p1.translate(4, 2)
+#print(f'(x, y) coordinates of p1: ({p1.x}, {p1.y})') # new coords
 
 p2 = Point(4, 3)
 print(p1.distance(p2)) # take distance from p1 to p2 
 
-print(f'p1 <? p2: {p1 < p2}')
-print(f'p1 ==? p2: {p1 == p2}')
-
+print(f'p1 <? p2: {p1 < p2}') # uses __lt__ from <
+print(f'p1 ==? p2: {p1 == p2}') # uses __eq__ from ==

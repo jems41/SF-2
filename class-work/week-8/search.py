@@ -12,7 +12,7 @@ lst = list(range(1,50000))
 
 s = set(range(1,50000))
 
-start = time.time()
-search(s, 50000)
+start = time.time() # 1.244 for set and 18.38 for list
+search(lst, 50000)
 end = time.time()
 print(end-start)

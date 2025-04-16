@@ -11,21 +11,30 @@ class Segment:
 
     def translate(self, dx: int, dy: int) -> None:
         '''Move segment dx horizontally and dy vertically'''
-        self.p1.translate(dx, dy)
+        self.p1.translate(dx, dy) # from point2
         self.p2.translate(dx, dy)
 
     def length(self) -> float:
         '''Return length of Segment'''
-        return self.p1.distance(self.p2)
+        return self.p1.distance(self.p2) # from point2
 
     def __lt__(self, other_segment) -> bool:
         '''Less-than comparison based on segment length'''
         return isinstance(other_segment, Segment) and self.length() < other_segment.length()
 
+    def __repr__(self) -> str:
+        return f'segment: ({self.p1}, {self.p2})'
+
+    def __ne__(self, other_segment) -> bool:
+        return isinstance(other_segment, Segment) and self.length() != other_segment.length()
+    
+    def __eq__(self, other_segment) -> bool:
+        return isinstance(other_segment, Segment) and self.length() == other_segment.length()
 # Example usage
 p1 = Point(3, 4)
 p2 = Point(0, 0)
 line_seg = Segment(p1, p2)
+print(line_seg)
 length1 = line_seg.length()
 print(f'length1: {length1}')
 
@@ -36,5 +45,7 @@ length2 = line_seg2.length()
 # print(f'length2: {length2}')
 
 print(f'Segment 1 < Segment 2? {line_seg < line_seg2}')
+print(f'Segment 1 != Segment 2? {line_seg != line_seg2}')
+print(f'Segment 1 == Segment 2? {line_seg == line_seg2}')
 
 # Work try to do relational operators and __repr__

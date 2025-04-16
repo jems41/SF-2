@@ -26,12 +26,30 @@ class Account:
     def __eq__(self, other: Account) -> bool:
         return isinstance(other, Account) and self.gold == other.gold
     
+    def __repr__(self) -> str:
+        return f'Account Balance: {self.gold}'
+    
+    def transferGold(self, other: Account, amount: int) -> bool:
+        if not isinstance(other, Account):
+            raise TypeError('Can only transfer gold to another Account)')
+        if not isinstance(other, Account) or amount <= 0:
+            raise ValueError('Amount must be a positive integer.')
+
+        if self.gold >= amount:
+            self.gold -= amount
+            other.gold += amount
+            return True
+        else:
+            return False
+
 a1 = Account(500)
 a2 = Account(500)
 a3 = Account(56)
 a4 = Account(34)
 
 value = 500
+
+print(a1.transferGold(a2, 250))
 
 print('a4 <? a3: ', a4 < a3)
 print('a1 <? a4: ', a1 < a4)

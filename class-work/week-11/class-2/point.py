@@ -1,5 +1,5 @@
 class Point:
-    def __init__(self):
+    def __init__(self) -> None:
         '''
         Create a two-dimensional point at (0, 0)
         '''
