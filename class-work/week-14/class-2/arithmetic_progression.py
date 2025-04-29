@@ -1,6 +1,6 @@
 from progression import Progression
 
-class ArithmeticProgression(Progression):
+class ArithmeticProgression(Progression): # linear
     '''Iterator producting arithmetic progression'''
     def __init__(self, increment=1, start=0):
         super().__init__(start)

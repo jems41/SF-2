@@ -16,6 +16,10 @@ class Progression:
         self._advance()
         return answer
 
+    def __iter__(self):
+        '''by convention an iterator returns itself' as an iterator'''
+        return self
+    
     def printProgression(self, n):
         '''Print the next n values of the progression.'''
         print(' '.join(str(next(self)) for _ in range(n)))  # take the next values in this iterator and change it into a string
