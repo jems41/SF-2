@@ -9,3 +9,8 @@ class Herbivore(Heterotroph):
         text = 'This organism is herbivore. It feeds on plant matter and its physiology \
             facilitates food search.'
         return super().__repr__() + '\n' + text
+    
+if __name__ == "__main__":
+    herbivore = Herbivore()
+    herbivore.eat()
+    print(repr(herbivore))
