@@ -14,12 +14,8 @@ class Animal(object, metaclass = ABCMeta):
     def sleep(self) -> None:
         pass
 
-    @abstractmethod
-    def eat(self) -> None:
-        pass
-
     def reproduce(self) -> str:
-        return 'Members of this kingdom reproduce by finding a mate of the same species'
+        return 'Members of this kingdom reproduce by finding a mate of the same species. '
     
     def __repr__(self) -> str:
         return f'Kingdom: Animalia'
