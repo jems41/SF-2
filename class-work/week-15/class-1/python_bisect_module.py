@@ -21,6 +21,6 @@ same as bisect(...)
 import bisect
 lst = [1, 2, 7, 7, 7, 8, 10, 11]
 num = 7
-print(bisect.bisect(lst, num))
-print(bisect.bisect_left(lst, num))
-print(bisect.bisect_right(lst, num))
+print(bisect.bisect(lst, num)) # 5
+print(bisect.bisect_left(lst, num)) # 2
+print(bisect.bisect_right(lst, num)) # 5
