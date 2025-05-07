@@ -20,23 +20,23 @@ class Bunny(Mammal, Herbivore, Pet): # method resolution order (if its not in ma
         return result
     
     def reproduce(self) -> None:
-        mammal = Mammal.reproduce(self)  # this must return a string
-        bunny = 'Bunnies can produce multiple litters per year, potentially having 3–8 kits per litter.'
-        print(mammal + bunny)
+        mammalReproduce = Mammal.reproduce(self)  # this must return a string
+        bunnyReproduce = 'Bunnies can produce multiple litters per \
+year, potentially having 3–8 kits per litter.'
+        print(mammalReproduce + bunnyReproduce)
 
     def move(self) -> None:
         print('I move by hopping and I can see things behind me...')
 
     def sleep(self) -> None:
-        print('Bunnies as nocturnal animals, typically sleep around 12 to 14 hours a day in short, intermittent periods')
+        print('Bunnies as nocturnal animals, typically sleep around \
+12 to 14 hours a day in short, intermittent periods')
         
     def eat(self) -> None:
         Herbivore.eat(self)
-        print('I mostly eat fresh hay and grass, with some leafy greens and a few pellets. I should only be given fruit and root vegetables, like carrots, as occassional treat.')
-    
-    def pet(self):
-        pet = Pet.pet(self)
-        print(pet)
+        print('I mostly eat fresh hay and grass, with some leafy \
+greens and a few pellets. I should only be given fruit and root \
+vegetables, like carrots, as occassional treat.')
 
 if __name__ == '__main__':
     b1 = Bunny()
@@ -51,5 +51,4 @@ if __name__ == '__main__':
     print()
     b1.sleep()
     print()
-    b1.pet()
-    print()
+    print(b1.pet() + '\n')
