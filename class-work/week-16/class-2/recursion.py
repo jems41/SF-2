@@ -32,4 +32,12 @@ Count the number of occurrences of a given
 element in a list
 '''
 def countOccur(lst, target):
-    pass
+    if not lst:
+        return 0
+    
+    if lst[0] == target:
+        count = 1
+    else:
+        count = 0
+
+    return count + countOccur(lst[1:], target)
