@@ -142,7 +142,7 @@ def wordTally(lst):
     dct = {}
     for key in lst:
         if key in dct:
-            dct[key] = dct[key] + 1    
+            dct[key] += 1    
         else:
             dct[key] = 1
     return dct
